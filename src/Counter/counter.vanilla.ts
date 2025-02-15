@@ -12,3 +12,5 @@ export let VanillaCounter = () => {
   div.append(btn, span);
   return div;
 };
+
+export default VanillaCounter;

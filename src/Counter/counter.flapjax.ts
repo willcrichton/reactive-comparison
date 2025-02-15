@@ -5,3 +5,5 @@ export let FlapjaxCounter = () => {
     .startsWith(0);
   return DIV({}, btn, SPAN({}, countB));
 };
+
+export default FlapjaxCounter;

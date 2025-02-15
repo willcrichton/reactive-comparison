@@ -57,3 +57,5 @@ export let ReactTodo = observer(() => {
     </div>
   );
 });
+
+export default ReactTodo;

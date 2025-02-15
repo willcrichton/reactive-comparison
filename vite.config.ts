@@ -9,8 +9,8 @@ export default defineConfig(({ mode }) => ({
     "process.env.NODE_ENV": JSON.stringify(mode)
   },
   plugins: [
-    react({ include: /\.react.tsx$/ }),
-    solid({ include: /\.solid.tsx$/ }),
+    react({ include: /\.react(-desugared)?.tsx$/ }),
+    solid({ include: /\.solid(-desugared)?.tsx$/ }),
     elm()
   ],
   test: {

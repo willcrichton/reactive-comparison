@@ -52,3 +52,5 @@ export let VanillaTodo = () => {
   div.append(addPanel, countContainer, list);
   return div;
 };
+
+export default VanillaTodo;

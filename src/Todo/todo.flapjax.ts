@@ -77,3 +77,5 @@ export let FlapjaxTodo = () => {
   );
   return DIV(addPanel.elt, ItemCount(todosB), UL(todoItemsB));
 };
+
+export default FlapjaxTodo;
