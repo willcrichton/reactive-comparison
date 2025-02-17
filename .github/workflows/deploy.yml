@@ -8,6 +8,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - uses: jorelali/setup-elm@v6
+        with:
+          elm-version: 0.19.1
       - name: Install Depot
         uses: cognitive-engineering-lab/depot/actions/install@main
       - name: Build
