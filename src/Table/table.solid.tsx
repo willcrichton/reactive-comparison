@@ -35,7 +35,7 @@ let ActionPanel = (props: { data: Data; setData: SetStoreFunction<Data> }) => (
     </button>
     <button
       onClick={() =>
-        props.setData("data", { by: 10 }, "label", l => l + " !!!")
+        props.setData("data", { by: 10 }, "label", l => `${l} !!!`)
       }
     >
       Update Labels

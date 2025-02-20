@@ -59,7 +59,7 @@ const FILE_TYPES = [
   },
   {
     ext: ".custom.ts",
-    name: "Custom",
+    name: "Custom"
   },
   {
     ext: ".react.tsx",
