@@ -59,7 +59,7 @@ const FILE_TYPES = [
   },
   {
     ext: ".custom.ts",
-    name: "Custom"
+    name: "Custom",
   },
   {
     ext: ".react.tsx",
@@ -104,10 +104,10 @@ let processImpls = (modules: any, srcs: any) => {
 };
 
 const IMPLS = [
-  // {
-  //   name: "Counter",
-  //   impls: processImpls(COUNTER_MODULES, COUNTER_SRC)
-  // },
+  {
+    name: "Counter",
+    impls: processImpls(COUNTER_MODULES, COUNTER_SRC)
+  },
   {
     name: "Todo",
     impls: processImpls(TODO_MODULES, TODO_SRC)

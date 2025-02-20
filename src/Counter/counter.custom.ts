@@ -1,5 +1,14 @@
 import { Incr, array, element } from "../incr";
 
+/*
+(defn Counter ()
+  (def n 0)
+  (defn on-click () (set! n (+ n 1)))
+  (div
+    (button [on-click] "+")
+    n))
+*/
+
 export let CounterCustom = () => {
   let div = document.createElement("div");
 
