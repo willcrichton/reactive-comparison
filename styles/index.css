@@ -24,4 +24,6 @@ h2 {
 .live {
   background: #fafafa;
   padding: 0.5em;
+  max-height: 400px;
+  overflow-y: auto;
 }

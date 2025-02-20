@@ -1,17 +1,18 @@
+import { action } from "mobx";
 import { observer, useLocalObservable } from "mobx-react";
 import { useRef } from "react";
 import type { Todo, TodoList } from "./types";
 
 let AddPanel = (props: { todoList: TodoList }) => {
   let ref = useRef<HTMLInputElement>(null);
-  let onClick = () => {
+  let onClick = action(() => {
     let contents = ref.current!.value;
     props.todoList.todos.push({
       contents,
       completed: false
     });
     ref.current!.value = "";
-  };
+  });
   return (
     <div>
       <button onClick={onClick}>Add</button>
@@ -30,9 +31,9 @@ let ItemCount = observer((props: { todoList: TodoList }) => {
 });
 
 let TodoItem = observer((props: { item: Todo }) => {
-  let onClick = () => {
+  let onClick = action(() => {
     props.item.completed = !props.item.completed;
-  };
+  });
   return (
     <li>
       {props.item.contents}

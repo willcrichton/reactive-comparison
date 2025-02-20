@@ -28,7 +28,8 @@
       },
       "complexity": {
         "noBannedTypes": "off",
-        "noForEach": "off"
+        "noForEach": "off",
+        "noUselessLoneBlockStatements": "off"
       },
       "suspicious": {
         "noArrayIndexKey": "off",

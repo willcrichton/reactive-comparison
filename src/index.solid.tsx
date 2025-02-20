@@ -23,6 +23,9 @@ const COUNTER_SRC = import.meta.glob("./Counter/*", {
   query: "?raw"
 });
 
+const TABLE_MODULES = import.meta.glob("./Table/*", { eager: true });
+const TABLE_SRC = import.meta.glob("./Table/*", { eager: true, query: "?raw" });
+
 let mountVanilla = (
   container: HTMLDivElement,
   component: () => HTMLElement
@@ -53,6 +56,10 @@ const FILE_TYPES = [
   {
     ext: ".vanilla.ts",
     name: "Vanilla"
+  },
+  {
+    ext: ".custom.ts",
+    name: "Custom"
   },
   {
     ext: ".react.tsx",
@@ -97,13 +104,17 @@ let processImpls = (modules: any, srcs: any) => {
 };
 
 const IMPLS = [
-  {
-    name: "Counter",
-    impls: processImpls(COUNTER_MODULES, COUNTER_SRC)
-  },
+  // {
+  //   name: "Counter",
+  //   impls: processImpls(COUNTER_MODULES, COUNTER_SRC)
+  // },
   {
     name: "Todo",
     impls: processImpls(TODO_MODULES, TODO_SRC)
+  },
+  {
+    name: "Table",
+    impls: processImpls(TABLE_MODULES, TABLE_SRC)
   }
 ];
 
@@ -112,7 +123,7 @@ let Impl = (impl: any) => {
   let codeDiv!: HTMLDivElement;
 
   createEffect(() => {
-    if (impl.type === "Vanilla") {
+    if (impl.type === "Vanilla" || impl.type === "Custom") {
       mountVanilla(liveDiv, impl.component);
     } else if (impl.type === "React" || impl.type === "React (Desugared)") {
       mountReact(liveDiv, impl.component);

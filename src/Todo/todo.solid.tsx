@@ -1,7 +1,7 @@
 /** @jsxImportSource solid-js */
 
+import { For } from "solid-js";
 import { type SetStoreFunction, createStore } from "solid-js/store";
-import { For } from "solid-js/web";
 
 import type { Todo, TodoList } from "./types";
 
