@@ -1,6 +1,18 @@
 import { type Incr, IncrArray, array, element } from "../incr";
 import type { Todo } from "./types";
 
+/*
+(defn AddPanel (todos : Todo[])
+  (def input-ref)
+  (defn on-click ()
+    (def contents input-ref.value)
+    (push! todos {contents, completed: false})
+    (set! input-ref.value ""))
+  (div
+    (input [type "text"] [ref input-ref])
+    (button [on-click] "Add")))
+*/
+
 let AddPanel = (todos: IncrArray<Todo>) => {
   let div = document.createElement("div");
   let input = document.createElement("input");
@@ -16,6 +28,16 @@ let AddPanel = (todos: IncrArray<Todo>) => {
   return div;
 };
 
+/*
+(defn TodoItem (item : Todo)
+  (defn on-click ()
+    (set! item.completed (! item.completed)))
+  (li
+    item.contents
+    (button [on-click]
+      (if (! item.completed) "Done" "Undone"))))
+*/
+
 let TodoItem = (item: Incr<Todo>) => {
   let li = document.createElement("li");
   let text = new Text(item.get().contents);
@@ -28,6 +50,13 @@ let TodoItem = (item: Incr<Todo>) => {
   return li;
 };
 
+/*
+(defn ItemCount (todos : Todo[])
+  (def count 
+    (len (filter todos (lambda (todo) todo.completed))))
+  (div "Completed " (span count)))
+*/
+
 let ItemCount = (todos: IncrArray<Todo>) => {
   let div = document.createElement("div");
   let count = todos
@@ -37,6 +66,15 @@ let ItemCount = (todos: IncrArray<Todo>) => {
   div.append("Completed: ", span);
   return div;
 };
+
+/*
+(defn Todo ()
+  (def todos [])
+  (div
+    (AddPanel [todos])
+    (ItemCount [todos])
+    (map todos TodoItem)))
+*/
 
 export let TodoCustom = () => {
   let div = document.createElement("div");

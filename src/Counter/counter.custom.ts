@@ -1,4 +1,4 @@
-import { Incr, autorun } from "../incr";
+import { Incr, array, element } from "../incr";
 
 export let CounterCustom = () => {
   let div = document.createElement("div");
@@ -8,12 +8,9 @@ export let CounterCustom = () => {
   btn.innerText = "+";
   btn.addEventListener("click", () => n.set(n.get() + 1));
 
-  let text = new Text(n.get().toString());
-  autorun(() => {
-    text.textContent = n.get().toString();
-  });
+  let span = element("span", array(n.lift(n => new Text(n.toString()))));
 
-  div.append(btn, text);
+  div.append(btn, span);
 
   return div;
 };
