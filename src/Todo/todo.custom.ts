@@ -1,4 +1,4 @@
-import { type Incr, IncrArray, array, element } from "../incr";
+import { type Incr, IncrArray, element, incrArray } from "../incr";
 import type { Todo } from "./types";
 
 /*
@@ -42,7 +42,7 @@ let TodoItem = (item: Incr<Todo>) => {
   let li = document.createElement("li");
   let text = new Text(item.get().contents);
   let label = item.lift(item => new Text(!item.completed ? "Done" : "Undone"));
-  let btn = element("button", array(label));
+  let btn = element("button", incrArray(label));
   btn.addEventListener("click", () => {
     item.set({ ...item.get(), completed: !item.get().completed });
   });
@@ -62,7 +62,7 @@ let ItemCount = (todos: IncrArray<Todo>) => {
   let count = todos
     .filter(el => el.get().completed)
     .lift(els => new Text(els.length.toString()));
-  let span = element("span", array(count));
+  let span = element("span", incrArray(count));
   div.append("Completed: ", span);
   return div;
 };

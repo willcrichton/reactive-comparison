@@ -1,4 +1,4 @@
-import { Incr, array, element } from "../incr";
+import { Incr, element, incrArray } from "../incr";
 
 /*
 (defn Counter ()
@@ -17,7 +17,7 @@ export let CounterCustom = () => {
   btn.innerText = "+";
   btn.addEventListener("click", () => n.set(n.get() + 1));
 
-  let span = element("span", array(n.lift(n => new Text(n.toString()))));
+  let span = element("span", incrArray(n.lift(n => new Text(n.toString()))));
 
   div.append(btn, span);
 

@@ -65,7 +65,8 @@ export class Incr<
   }
 }
 
-let debugFn = (f: (_: any) => any) => (f.name !== "" ? f.name : f.toString());
+let debugFn = (f: (..._: any) => any) =>
+  f.name !== "" ? f.name : f.toString();
 
 export class IncrLift<
   I,
@@ -118,7 +119,7 @@ export class IncrArray<T> extends Incr<Incr<T>[], never, ArrayWrite> {
     });
   }
 
-  map<S>(f: (el: Incr<T>) => S): IncrArray<S> {
+  map<S>(f: (el: Incr<T>, i: number) => S): IncrArray<S> {
     return new IncrArrayMap(this, f).out;
   }
 
@@ -149,18 +150,27 @@ export class IncrArray<T> extends Incr<Incr<T>[], never, ArrayWrite> {
     this.t.splice(index, 1);
     this.signal.write.emit({ type: "remove", index });
   }
+
+  swap(i: number, j: number) {
+    let tmp = this.t[i].get();
+    this.t[i].set(this.t[j].get());
+    this.t[j].set(tmp);
+  }
 }
 
-export let array = <T>(...inp: Incr<T>[]): IncrArray<T> => new IncrArray(inp);
+export let incrArray = <T>(...inp: Incr<T>[]): IncrArray<T> =>
+  new IncrArray(inp);
+export let array = <T>(...inp: T[]): IncrArray<T> =>
+  new IncrArray(inp.map(t => new Incr(t)));
 
 export class IncrArrayMap<I, O> {
   out: IncrArray<O>;
 
   constructor(
     readonly inp: IncrArray<I>,
-    readonly f: (el: Incr<I>) => O
+    readonly f: (el: Incr<I>, i: number) => O
   ) {
-    this.out = new IncrArray(inp.get().map(el => new Incr(f(el))));
+    this.out = new IncrArray(inp.get().map((el, i) => new Incr(f(el, i))));
     inp.signal.write.subscribe(this.update.bind(this));
   }
 
@@ -168,16 +178,16 @@ export class IncrArrayMap<I, O> {
     console.debug("Map", eff, debugFn(this.f));
     if (eff.type === "setIndex") {
       let inpEl = this.inp.get()[eff.index];
-      let outEl = this.f(inpEl);
+      let outEl = this.f(inpEl, eff.index);
       this.out.setIndex(eff.index, outEl);
     } else if (eff.type === "insert") {
       let inpEl = this.inp.get()[eff.index];
-      let outEl = this.f(inpEl);
+      let outEl = this.f(inpEl, eff.index);
       this.out.insert(eff.index, outEl);
     } else if (eff.type === "remove") {
       this.out.remove(eff.index);
     } else if (eff.type === "set") {
-      this.out.set(this.inp.get().map(el => new Incr(this.f(el))));
+      this.out.set(this.inp.get().map((el, i) => new Incr(this.f(el, i))));
     }
   }
 }

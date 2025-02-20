@@ -125,6 +125,11 @@ declare function mergeE<S, T>(
   stream1: EventStream<S>,
   stream2: EventStream<T>
 ): EventStream<S | T>;
+declare function mergeE<S, T, U>(
+  stream1: EventStream<S>,
+  stream2: EventStream<T>,
+  stream3: EventStream<U>
+): EventStream<S | T | U>;
 
 // Behavior constructors and operations
 declare function constantB<T>(val: T): Behavior<T>;

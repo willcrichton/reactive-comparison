@@ -4,8 +4,8 @@ import {
   IncrArray,
   IncrArrayMap,
   IncrElement,
-  array,
-  element
+  element,
+  incrArray
 } from "../incr";
 import type { Todo } from "./types";
 
@@ -80,7 +80,7 @@ let AddPanel = (
       } else */
       if (eff.type === "insert") {
         let inpEl = ctx.lisOp.inp.get()[eff.index];
-        let outEl = ctx.lisOp.f(inpEl);
+        let outEl = ctx.lisOp.f(inpEl, eff.index);
         ctx.lisOp.out.insert(eff.index, outEl);
       } /* else if (eff.type === "remove") {
         this.out.remove(eff.index);
@@ -98,7 +98,7 @@ let AddPanel = (
 
       let eff: ArrayWrite = { type: "insert", index };
       let inpEl = ctx.lisOp.inp.get()[eff.index];
-      let outEl = ctx.lisOp.f(inpEl);
+      let outEl = ctx.lisOp.f(inpEl, eff.index);
       ctx.lisOp.out.insert(eff.index, outEl);
     }
 
@@ -110,7 +110,7 @@ let AddPanel = (
       todos.t.splice(index, 1, t2);
 
       let inpEl = ctx.lisOp.inp.get()[index];
-      let outEl = ctx.lisOp.f(inpEl);
+      let outEl = ctx.lisOp.f(inpEl, index);
       ctx.lisOp.out.insert(index, outEl);
     }
 
@@ -312,7 +312,7 @@ let TodoItem = (item: Incr<Todo>) => {
   let li = document.createElement("li");
   let text = new Text(item.get().contents);
   let label = item.lift(item => new Text(!item.completed ? "Done" : "Undone"));
-  let btn = element("button", array(label));
+  let btn = element("button", incrArray(label));
   btn.addEventListener("click", () => {
     item.set({ ...item.get(), completed: !item.get().completed });
   });
@@ -325,7 +325,7 @@ let ItemCount = (todos: IncrArray<Todo>) => {
   let count = todos
     .filter(el => el.get().completed)
     .lift(els => new Text(els.length.toString()));
-  let span = element("span", array(count));
+  let span = element("span", incrArray(count));
   div.append("Completed: ", span);
   return div;
 };
